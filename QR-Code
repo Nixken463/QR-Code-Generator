@@ -1,0 +1,76 @@
+import subprocess
+import sys
+
+try:
+    import qrcode
+    import customtkinter as ctk
+    from PIL import  ImageTk
+    from tkinter import filedialog
+
+except ModuleNotFoundError as e:
+    for library in ["customtkinter", "qrcode", "pillow"]:
+        subprocess.check_call([sys.executable, "-m", "pip", "install", library])
+import qrcode
+import customtkinter as ctk
+from PIL import  ImageTk
+from tkinter import filedialog
+
+ctk.set_appearance_mode("dark")  
+ctk.set_default_color_theme("dark-blue")
+
+
+app = ctk.CTk()
+app.geometry("720x480")
+app.title("QRCode Generator")
+
+
+
+def export_qrcode():
+    if qr_img:
+        file_path = filedialog.asksaveasfilename(
+        defaultextension=".png",  
+        filetypes=[("PNG files", "*.png"), ("JPEG files", "*.jpg"), ("All files", "*.*")],  
+        title="Save QR Code as" )
+
+        if file_path:
+            qr_img.save(file_path)
+            export_button.configure(f"QR Code wurde in {file_path} gespeichert")
+
+export_button = None
+
+def generate_code():
+    global qr_img
+    global export_button
+    data = entry.get()
+    qr = qrcode.QRCode(
+    version=1,  
+    error_correction=qrcode.constants.ERROR_CORRECT_L,  
+    box_size=4,  
+    border=4,)
+    
+    qr.add_data(data)
+    qr.make(fit=True)
+    
+    qr_img = qr.make_image(fill_color="purple", back_color="white")
+    qr_tk_img = ImageTk.PhotoImage(qr_img)
+
+    qr_label.configure(image=qr_tk_img)
+    qr_label.image = qr_tk_img
+
+    if not export_button:
+        export_button = ctk.CTkButton(app, text="QRCode exportieren", command=export_qrcode)
+        export_button.pack(pady=1)
+
+entry = ctk.CTkEntry(app, width=300, placeholder_text="Enter Url")
+entry.pack(pady=20)
+
+generate_button = ctk.CTkButton(app, text="QRCode erstellen", command=generate_code)
+generate_button.pack(pady=10)
+
+qr_label = ctk.CTkLabel(app, text="", width=200, height=200)
+qr_label.pack(pady=5)
+   
+
+
+
+app.mainloop()
