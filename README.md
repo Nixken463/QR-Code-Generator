@@ -1,3 +1,5 @@
 # QR-Code-
 Simple QR-Code generator written in python with customtkinter
-![2024-11-15-192321_hyprshot](https://github.com/user-attachments/assets/24c51657-ec62-4cd8-a79b-1873626923c6)
+
+
+![2024-11-15-192529_hyprshot](https://github.com/user-attachments/assets/1dcbaf96-3a50-44f1-b259-0778828276a1)
