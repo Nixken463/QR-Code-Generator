@@ -1,5 +1,3 @@
-#Made by Nixken
-
 import subprocess
 import sys
 
@@ -36,7 +34,7 @@ def export_qrcode():
 
         if file_path:
             qr_img.save(file_path)
-            export_button.configure(f"QR Code wurde in {file_path} gespeichert")
+            export_button.configure(f"QR Code was saved in {file_path}")
 
 export_button = None
 
@@ -60,13 +58,13 @@ def generate_code():
     qr_label.image = qr_tk_img
 
     if not export_button:
-        export_button = ctk.CTkButton(app, text="QRCode exportieren", command=export_qrcode)
+        export_button = ctk.CTkButton(app, text="Export QR-Code", command=export_qrcode)
         export_button.pack(pady=1)
 
 entry = ctk.CTkEntry(app, width=300, placeholder_text="Enter Url")
 entry.pack(pady=20)
 
-generate_button = ctk.CTkButton(app, text="QRCode erstellen", command=generate_code)
+generate_button = ctk.CTkButton(app, text="Create QR-Code", command=generate_code)
 generate_button.pack(pady=10)
 
 qr_label = ctk.CTkLabel(app, text="", width=200, height=200)
