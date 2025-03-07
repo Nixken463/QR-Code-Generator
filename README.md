@@ -1,4 +1,4 @@
-# QR-Code-
+# QR-Code-Generator
 Simple QR-Code generator written in python with customtkinter
 
 
